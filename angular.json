@@ -1,0 +1,249 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects/libs/",
+  "projects": {
+    "education-blog": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/apps/education-blog",
+      "sourceRoot": "projects/apps/education-blog/src",
+      "prefix": "bl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "public/education-blog",
+            "index": "projects/apps/education-blog/src/index.html",
+            "main": "projects/apps/education-blog/src/main.ts",
+            "polyfills": "projects/apps/education-blog/src/polyfills.ts",
+            "tsConfig": "projects/apps/education-blog/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/apps/education-blog/src/favicon.ico",
+              "projects/apps/education-blog/src/assets"
+            ],
+            "styles": [
+              "projects/apps/education-blog/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps/education-blog/src/environments/environment.ts",
+                  "with": "projects/apps/education-blog/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "education-blog:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "education-blog:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "education-blog:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/apps/education-blog/src/test.ts",
+            "polyfills": "projects/apps/education-blog/src/polyfills.ts",
+            "tsConfig": "projects/apps/education-blog/tsconfig.spec.json",
+            "karmaConfig": "projects/apps/education-blog/karma.conf.js",
+            "assets": [
+              "projects/apps/education-blog/src/favicon.ico",
+              "projects/apps/education-blog/src/assets"
+            ],
+            "styles": [
+              "projects/apps/education-blog/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/apps/education-blog/tsconfig.app.json",
+              "projects/apps/education-blog/tsconfig.spec.json",
+              "projects/apps/education-blog/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/apps/education-blog/e2e/protractor.conf.js",
+            "devServerTarget": "education-blog:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "education-blog:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "ui-kit": {
+      "projectType": "library",
+      "root": "projects/libs/ui-kit",
+      "sourceRoot": "projects/libs/ui-kit/src",
+      "prefix": "edu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/libs/ui-kit/tsconfig.lib.json",
+            "project": "projects/libs/ui-kit/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/libs/ui-kit/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/libs/ui-kit/src/test.ts",
+            "tsConfig": "projects/libs/ui-kit/tsconfig.spec.json",
+            "karmaConfig": "projects/libs/ui-kit/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/libs/ui-kit/tsconfig.lib.json",
+              "projects/libs/ui-kit/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ui-types": {
+      "projectType": "library",
+      "root": "projects/libs/ui-types",
+      "sourceRoot": "projects/libs/ui-types/src",
+      "prefix": "edu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/libs/ui-types/tsconfig.lib.json",
+            "project": "projects/libs/ui-types/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/libs/ui-types/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/libs/ui-types/src/test.ts",
+            "tsConfig": "projects/libs/ui-types/tsconfig.spec.json",
+            "karmaConfig": "projects/libs/ui-types/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/libs/ui-types/tsconfig.lib.json",
+              "projects/libs/ui-types/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "backend": {
+      "projectType": "library",
+      "root": "projects/libs/backend",
+      "sourceRoot": "projects/libs/backend/src",
+      "prefix": "edu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/libs/backend/tsconfig.lib.json",
+            "project": "projects/libs/backend/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/libs/backend/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/libs/backend/src/test.ts",
+            "tsConfig": "projects/libs/backend/tsconfig.spec.json",
+            "karmaConfig": "projects/libs/backend/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/libs/backend/tsconfig.lib.json",
+              "projects/libs/backend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "education-blog"
+}
